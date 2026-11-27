@@ -2,42 +2,14 @@ import 'server-only';
 
 import { randomUUID } from 'node:crypto';
 import type { Task } from '../domain/task';
+import { sortedTasks } from '../helper/sortDate';
 
 class TaskRepository {
-  private tasks: Task[] = [{
-    id: randomUUID(),
-    titulo: 'teste',
-    dataCriacao: new Date(),
-    descricao: 'teste'
-  },
-  {
-    id: randomUUID(),
-    titulo: 'teste2',
-    dataCriacao: new Date(),
-    descricao: 'teste'
-  },
-  {
-    id: randomUUID(),
-    titulo: 'teste3',
-    dataCriacao: new Date(),
-    descricao: 'teste'
-  },
-  {
-    id: randomUUID(),
-    titulo: 'teste4',
-    dataCriacao: new Date(),
-    descricao: 'teste'
-  },
-  {
-    id: randomUUID(),
-    titulo: 'teste5',
-    dataCriacao: new Date(),
-    descricao: 'teste'
-  }
-  ];
+  private tasks: Task[] = [];
+
 
   findAll(): Task[] {
-    return [...this.tasks];
+    return sortedTasks(this.tasks);
   }
 
   create(data: Omit<Task, 'id' | 'dataCriacao'>): Task {
@@ -53,9 +25,23 @@ class TaskRepository {
   }
 
   delete(id: string) {
-    const task = this.tasks.find((task) => task.id === id);
+    const index = this.tasks.findIndex(
+      task => task.id === id
+    );
 
+    if (index === -1) {
+      throw new Error('Task não encontrada');
+    }
 
+    const [deletedTask] = this.tasks.splice(index, 1);
+
+    return deletedTask;
+  }
+
+  update(id: string, data: Partial<Task>) {
+    const index = this.tasks.findIndex(
+      task => task.id === id
+    );
   }
 
 }

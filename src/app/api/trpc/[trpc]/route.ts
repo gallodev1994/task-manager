@@ -7,6 +7,9 @@ const createContext = async () => ({
    createTask: async (data: Omit<Task, 'id' | 'dataCriacao'>) => {
       return await taskRepository.create(data);
    },
+   deleteTask: async (id: string) => {
+      return await taskRepository.delete(id);
+   }
 });
 
 const handler = (req: Request) =>

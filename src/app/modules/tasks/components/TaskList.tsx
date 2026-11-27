@@ -30,15 +30,15 @@ export const TaskList = () => {
                <span className='text-indigo-700'>T</span>ask <span className='text-indigo-700 ml-2'>M</span>anager
             </h1>
 
-            {data?.length === 0 && (
-               <EmptyTask />
-            )}
             <div className='flex justify-end'>
                {!isTaskFormOpened ? <AiFillPlusSquare size={35} cursor={'pointer'} onClick={() => handleOpenForm(true)} /> : <AiFillMinusSquare size={35} cursor={'pointer'} onClick={() => handleOpenForm(false)} />}
             </div>
             {isTaskFormOpened &&
                <TaskForm />
             }
+            {data?.length === 0 && (
+               <EmptyTask />
+            )}
             <div className="overflow-y-auto h-full flex gap-5 flex-col">
                {data?.map((task) => (
                   <TaskItem task={task} key={task.id} />
