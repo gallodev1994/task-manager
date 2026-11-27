@@ -6,13 +6,16 @@ import {
 
 import { appRouter } from '@/server/trpc/routers/_app';
 import { makeQueryClient } from './query-client';
+import { createContext } from './context';
 
 export async function getTasksQuery() {
    const queryClient = makeQueryClient();
+   const ctx = await createContext();
+   const caller = appRouter.createCaller(ctx);
 
    await queryClient.query({
       queryKey: [['task', 'list'], { type: 'query' }],
-      queryFn: () => appRouter.createCaller({}).task.list(),
+      queryFn: () => caller.task.list(),
    });
 
    return {
