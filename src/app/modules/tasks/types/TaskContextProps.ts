@@ -1,8 +1,8 @@
 import { Task } from "@/server/domain/task"
 
 export type TaskContextProps = {
-   tasks: Task[],
-   setTasks: (tasks: Task[]) => void,
-   newTask: Task | null,
-   setNewTask: (task: Task) => void,
+   task: Partial<Task>,
+   updateTask: (task: Partial<Task>) => void,
+   isTaskFormOpened: boolean,
+   setIsTaskFormOpened: (open: boolean) => void,
 }

@@ -9,16 +9,27 @@ export const TaskProvider = ({
 }: {
    children: React.ReactNode;
 }) => {
-   const [tasks, setTasks] = useState<Task[]>([])
-   const [newTask, setNewTask] = useState<Task | null>(null);
+   const [task, setTask] = useState<Partial<Task>>(
+      {
+         titulo: "",
+      }
+   );
+   const [isTaskFormOpened, setIsTaskFormOpened] = useState<boolean>(false);
+
+   const updateTask = (data: Partial<Task>) => {
+      setTask((prev) => ({
+         ...prev,
+         ...data
+      }));
+   }
 
 
    return (
       <TaskContext.Provider value={{
-         tasks,
-         setTasks,
-         newTask,
-         setNewTask
+         task,
+         updateTask,
+         isTaskFormOpened,
+         setIsTaskFormOpened
       }}>
          {children}
       </TaskContext.Provider>
