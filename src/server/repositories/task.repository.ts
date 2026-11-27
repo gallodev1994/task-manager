@@ -15,7 +15,26 @@ class TaskRepository {
     titulo: 'teste2',
     dataCriacao: new Date(),
     descricao: 'teste'
-  }];
+  },
+  {
+    id: randomUUID(),
+    titulo: 'teste3',
+    dataCriacao: new Date(),
+    descricao: 'teste'
+  },
+  {
+    id: randomUUID(),
+    titulo: 'teste4',
+    dataCriacao: new Date(),
+    descricao: 'teste'
+  },
+  {
+    id: randomUUID(),
+    titulo: 'teste5',
+    dataCriacao: new Date(),
+    descricao: 'teste'
+  }
+  ];
 
   findAll(): Task[] {
     return [...this.tasks];
@@ -35,7 +54,7 @@ class TaskRepository {
 
   delete(id: string) {
     const task = this.tasks.find((task) => task.id === id);
-    
+
 
   }
 
