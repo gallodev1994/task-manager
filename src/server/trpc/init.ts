@@ -1,6 +1,7 @@
 import { initTRPC } from '@trpc/server';
 import { Task } from '../domain/task';
 import { ZodError } from 'zod/v4';
+import superjson from 'superjson';
 
 const t = initTRPC.context<{
    createTask: (data: Omit<Task, 'id' | 'dataCriacao'>) => Promise<Task>
@@ -17,8 +18,10 @@ const t = initTRPC.context<{
                   : null,
          },
       };
-   }
-});
+   },
+   transformer: superjson,
+},
+);
 
 export const router = t.router;
 export const publicProcedure = t.procedure;
